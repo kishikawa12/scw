@@ -989,7 +989,7 @@ function Add-AzureSteps() {
     }
 
     #Resource Group Check
-    $targetGroup = "scw-group-$($userProperties.userid)"; $SubId = $userProperties.id
+    $targetGroup = "scw-group-dynatrace"; $SubId = $userProperties.id
     $groupExists = Send-Update -t 1 -content "Azure: Resource group exists?" -run "az group exists -g $targetGroup --subscription $SubId" -append
     if ($groupExists -eq "true") {
         Send-Update -content "yes" -type 1
