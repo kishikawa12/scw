@@ -591,7 +591,11 @@ function Set-Provider() {
             write-host -ForegroundColor red "`r`nY U no pick valid option?" 
         }
     }
-    $functionProperties = @{provider = $providerSelected.Provider; id = $providerSelected.identifier.tolower(); userid = $providerSelected.userid.tolower() }
+    $functionProperties = @{
+    provider = $providerSelected.Provider
+    id = $providerSelected.identifier.tolower()
+    userid = $providerSelected.userid.tolower() -replace '#', ''
+}
 
     # Reset choices
     # Add option to change destination again
@@ -699,7 +703,7 @@ function Add-AzureMultiUserSteps() {
         $muCreateWebApp = $using:muCreateWebApp
         $muDeployDynatrace = $using:muDeployDynatrace
         # Setup core variables
-        $userName = "dynatrace"
+        $userName = ""
         $type = $_.type
         $resourceGroup = "scw-group-$userName"
         $targetCluster = "scw-AKS-$userName"
@@ -989,7 +993,7 @@ function Add-AzureSteps() {
     }
 
     #Resource Group Check
-    $targetGroup = "scw-group-dynatrace"; $SubId = $userProperties.id
+    $targetGroup = "scw-group-$($userProperties.userid)"; $SubId = $userProperties.id
     $groupExists = Send-Update -t 1 -content "Azure: Resource group exists?" -run "az group exists -g $targetGroup --subscription $SubId" -append
     if ($groupExists -eq "true") {
         Send-Update -content "yes" -type 1
