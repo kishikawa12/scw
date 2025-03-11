@@ -699,7 +699,7 @@ function Add-AzureMultiUserSteps() {
         $muCreateWebApp = $using:muCreateWebApp
         $muDeployDynatrace = $using:muDeployDynatrace
         # Setup core variables
-        $userName = $_.DisplayName
+        $userName = "dynatrace"
         $type = $_.type
         $resourceGroup = "scw-group-$userName"
         $targetCluster = "scw-AKS-$userName"
